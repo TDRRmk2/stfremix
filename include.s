@@ -2498,4 +2498,40 @@
    .set  LUMA_START,0x11400000
    .globl   LUMA2_START
    .set  LUMA2_START,0x12800000
+
+   /* my unofficial constants */
+   .globl CHAR_SONIC
+   .set CHAR_SONIC,  0
+   .globl CHAR_TAILS
+   .set CHAR_TAILS,  1
+   .globl CHAR_AMY
+   .set CHAR_AMY,	 2
+   .globl CHAR_METAL
+   .set CHAR_METAL,  3
+   .globl CHAR_FANG
+   .set CHAR_FANG,   4
+   .globl CHAR_BARK
+   .set CHAR_BARK,   5
+   .globl CHAR_KNUX
+   .set CHAR_KNUX,   6
+   .globl CHAR_ESPIO
+   .set CHAR_ESPIO,  7
+   .globl CHAR_EGGMAN1
+   .set CHAR_EGGMAN1,8
+   .globl CHAR_EGGMAN2
+   .set CHAR_EGGMAN2,9
+   .globl CHAR_BEAN
+   .set CHAR_BEAN,	 0xA
+   .globl CHAR_MECHEGG
+   .set CHAR_MECHEGG,0xB
+   .globl CHAR_EGGMAN1
+   .set CHAR_UFOEGG, 0xC
+   .globl CHAR_EGGMAN1
+   .set CHAR_EGGMAN3,0xD
+   .globl CHAR_ROCKET
+   .set CHAR_ROCKET, 0xE
+   .globl CHAR_HONEY
+   .set CHAR_HONEY,  0xF
+   .globl CHAR_SUPERS
+   .set CHAR_SUPERS, 0x10
    #end
