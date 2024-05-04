@@ -2524,9 +2524,9 @@
    .set CHAR_BEAN,	 0xA
    .globl CHAR_MECHEGG
    .set CHAR_MECHEGG,0xB
-   .globl CHAR_EGGMAN1
+   .globl CHAR_UFOEGG
    .set CHAR_UFOEGG, 0xC
-   .globl CHAR_EGGMAN1
+   .globl CHAR_EGGMAN3
    .set CHAR_EGGMAN3,0xD
    .globl CHAR_ROCKET
    .set CHAR_ROCKET, 0xE
