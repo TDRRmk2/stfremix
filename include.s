@@ -2534,4 +2534,7 @@
    .set CHAR_HONEY,  0xF
    .globl CHAR_SUPERS
    .set CHAR_SUPERS, 0x10
+
+   .globl remix_alt_mode
+   .set remix_alt_mode, mod_fa_unused
    #end
