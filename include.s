@@ -2537,4 +2537,6 @@
 
    .globl remix_alt_mode
    .set remix_alt_mode, mod_fa_unused
+   .globl no_ketchup_mode
+   .set no_ketchup_mode, unused_unknown0
    #end
