@@ -52848,7 +52848,8 @@ loc_361A0:                              # CODE XREF: select_pl+2DC↑j
                 mov     0, r15
                 st      r15, 0x40(g13)
 sel_pl_p1r:                             # CODE XREF: select_pl+48↑j
-                bbc     0xF, r8, sel_pl_p1l # Label from Fighting Vipers source
+                b       remix_sel_pl_p1r_inj #bbc     0xF, r8, sel_pl_p1l # Label from Fighting Vipers source
+remix_sel_pl_p1r_inj_d:
                 ldob    0x5C(g13), r14
                 cmpobne 0, r14, sel_pl_p1_sage
                 stob    r9, 0x5C(g13)
@@ -53149,9 +53150,10 @@ sel_pl_p1_go:                           # CODE XREF: select_pl+84C↑j
                 lda     -1(r15), r15
                 stib    r15, 0x5E(g13)
 sel_pl_p1_nise_add_skip:                # CODE XREF: select_pl+A70↑j
-                shlo    8, 7, r4        # Label from Fighting Vipers source
+                shlo	8, 1, r4#shlo    8, 7, r4        # Label from Fighting Vipers source
                 and     r4, r8, r3
-                cmpobe  0, r3, sel_pl_exit
+                b		remix_sel_pl_p1_nise_add_skip_inj # cmpobe  0, r3, sel_pl_exit
+remix_sel_pl_p1_nise_add_skip_inj_d:
                 ld      select0_flag, r15
                 clrbit  1, r15, r15
                 st      r15, select0_flag
@@ -213680,6 +213682,24 @@ remix_set_obj_inj_not3157:
 remix_set_obj_inj_normal:
 	mov     0, g1 # orig. instruction
 	b remix_set_obj_inj_d
+
+remix_sel_pl_p1r_inj:
+	ld INTERUPT_FLAGS_HELD, r13
+	shro 10, r13, r13 # P1 Block
+	and 1, r13, r13
+	cmpobe 1, r13, remix_sel_pl_p1r_inj_d
+remix_sel_pl_p1r_inj_normal:
+	bbc 0xF, r8, sel_pl_p1l
+	b remix_sel_pl_p1r_inj_d
+
+remix_sel_pl_p1_nise_add_skip_inj:
+	ld INTERUPT_FLAGS_MOMEN_ON_REL, r15
+	shro 10, r15, r15 # P1 Block
+	and 1, r15, r15
+	cmpobe 1, r15, remix_sel_pl_p1_nise_add_skip_inj_d
+remix_sel_pl_p1_nise_add_skip_inj_normal:
+	cmpobe  0, r3, sel_pl_exit
+	b remix_sel_pl_p1_nise_add_skip_inj_d
 
 # add inj here
 
