@@ -52643,7 +52643,7 @@ select_pl:                              # DATA XREF: select_init+320↑o
                 ldob    0x5C(g13), r13  # Label from official source
                 ldob    0x5D(g13), r14  # mod_fa_sel_disp_add+0x5D
                 cmpobe  r13, r14, old_set_skip # Branch if char_sel_cursor_pos is equal to char_sel_cursor_pos_prev_frame
-                ldib    0x5C(g13), r15  # Set r15 to char_sel_cursor_pos
+				ldib    0x5C(g13), r15  # Set r15 to char_sel_cursor_pos
                 stib    r15, 0x5D(g13)  # Store r15 in char_sel_cursor_pos_prev_frame
 old_set_skip:                           # CODE XREF: select_pl+8↑j
                 ldob    char_select_array_length, r9 # Label from Fighting Vipers source
@@ -213443,14 +213443,6 @@ remix_no_random_mode:
 	shro 17, r8, r8 # P2 Kick
 	and 1, r8, r8
 	or r4, r8, r4
-	stob r4, remix_alt_mode
-
-	ld INTERUPT_FLAGS_HELD, r8
-	shro 10, r8, r4 # P1 Block
-	and 1, r4, r4
-	shro 18, r8, r8 # P2 Block
-	and 1, r8, r8
-	or r4, r8, r4
 	stob r4, no_ketchup_mode
 	mov 0, r8 # original instruction
 	b small_dface_loop
@@ -213482,7 +213474,7 @@ remix_init_random_list_loop:
 #	b 		loc_AFA0_inj_d
 
 remix_cp_action_init:
-	ld remix_alt_mode, g5
+	ldob p_alt_skin(g7), g5
 	cmpibne 1, g5, remix_cp_action_init_normal
 	ld CHAR_PARTS_ALT[r3*4], g5
 	b remix_cp_action_init_d
@@ -213491,7 +213483,7 @@ remix_cp_action_init_normal:
 	b remix_cp_action_init_d
 
 remix_cp_sub_1BCC0:
-	ld remix_alt_mode, g5
+	ldob p_alt_skin(g7), g5
 	cmpibne 1, g5, remix_cp_sub_1BCC0_normal
 	ld CHAR_PARTS_ALT[r3*4], g5
 	b remix_cp_sub_1BCC0_d
@@ -213500,7 +213492,7 @@ remix_cp_sub_1BCC0_normal:
 	b remix_cp_sub_1BCC0_d
 
 remix_cp_calc_rob_angle_int:
-	ld remix_alt_mode, r4
+	ldob p_alt_skin(g7), r4
 	cmpibne 1, r4, remix_cp_calc_rob_angle_int_normal
 	ld CHAR_PARTS_ALT[r7*4], r4
 	b remix_cp_calc_rob_angle_int_d
@@ -213509,7 +213501,7 @@ remix_cp_calc_rob_angle_int_normal:
 	b remix_cp_calc_rob_angle_int_d
 
 remix_cp_sub_33A04:
-	ld remix_alt_mode, r4
+	ldob p_alt_skin(g7), r4
 	cmpibne 1, r4, remix_cp_sub_33A04_normal
 	ld CHAR_PARTS_ALT[r3*4], r4
 	b remix_cp_sub_33A04_d
@@ -213518,7 +213510,7 @@ remix_cp_sub_33A04_normal:
 	b remix_cp_sub_33A04_d
 
 remix_cp_loc_385A8:
-	ld remix_alt_mode, r4
+	ldob p_alt_skin(g7), r4
 	cmpibne 1, r4, remix_cp_loc_385A8_normal
 	ld CHAR_PARTS_ALT[g2*4], g0
 	b loc_385B0
@@ -213527,7 +213519,7 @@ remix_cp_loc_385A8_normal:
 	b loc_385B0
 
 remix_set_mot_dat_inj:
-	ld remix_alt_mode, r5
+	ldob p_alt_skin(g7), r5
 	cmpibne 1, r5, remix_set_mot_dat_inj_normal
 	ld PLAYER_ALT_HEAD_LIST[r3*4], r5
 	b remix_set_mot_dat_inj_d
@@ -213536,7 +213528,7 @@ remix_set_mot_dat_inj_normal:
 	b remix_set_mot_dat_inj_d
 
 remix_read_player_alt_head_list:
-	ld remix_alt_mode, r5
+	ldob p_alt_skin(g7), r5
 	cmpibne 1, r5, remix_read_player_alt_head_list_normal
 	ld PLAYER_ALT_HEAD_LIST[g0*4], g0
 	b remix_read_player_alt_head_list_ret
@@ -213547,22 +213539,22 @@ remix_read_player_alt_head_list_ret:
 
 remix_player_head_change_action_inj:
 	ldob    4(g4), r3       # g4 = 0xD16B1
-        stob    r3, 0x2A70(g7)  # P1_HEAD_OFFSET or P2_HEAD_OFFSET
+    stob    r3, 0x2A70(g7)  # P1_HEAD_OFFSET or P2_HEAD_OFFSET
 	mov	r3, g0
 	call	remix_read_player_alt_head_list
-        ldob    0x1B0(g7), r4   # r4 = P1_CHAR_VALUE or P2_CHAR_VALUE
-        ld      (g0)[r4*4], g0
-        cmpobne 0, g0, loc_33124
-        mov     0, r3
-        stob    r3, 0x2A70(g7)
+    ldob    0x1B0(g7), r4   # r4 = P1_CHAR_VALUE or P2_CHAR_VALUE
+    ld      (g0)[r4*4], g0
+    cmpobne 0, g0, loc_33124
+    mov     0, r3
+    stob    r3, 0x2A70(g7)
 	mov	r3, g0
 	call	remix_read_player_alt_head_list
-        ldob    0x1B0(g7), r4
-        ld      (g0)[r4*4], g0
+    ldob    0x1B0(g7), r4
+    ld      (g0)[r4*4], g0
 	b remix_player_head_change_action_inj_d
 
 remix_osage_init_inj:
-	ld	remix_alt_mode, r4
+	ldob p_alt_skin(g7), r4
 	cmpibne 1, r4, remix_osage_init_inj_normal
 	lda	alt_osage_per_character[r3*4], r3
 	b remix_osage_init_inj_d
@@ -213571,7 +213563,7 @@ remix_osage_init_inj_normal:
 	b remix_osage_init_inj_d
 
 remix_loc_1B4FC_inj:
-	ld	remix_alt_mode, r5
+	ldob p_alt_skin(g7), r5
 	cmpibne 1, r5, remix_loc_1B4FC_inj_normal
 	ld      alt_player_hand_animations[r3*4], r5
 	b remix_loc_1B4FC_inj_d
@@ -213580,7 +213572,7 @@ remix_loc_1B4FC_inj_normal:
 	b remix_loc_1B4FC_inj_d
 
 remix_player_hand_change_action_inj:
-	ld	remix_alt_mode, g0
+	ldob p_alt_skin(g7), g0
 	cmpibne 1, g0, remix_player_hand_change_action_inj_normal
 	ld      alt_player_hand_animations[r3*4], g0
 	b	remix_player_hand_change_action_inj_d
@@ -213590,7 +213582,7 @@ remix_player_hand_change_action_inj_normal:
 
 # this is a very stupid minuscule detail but might as well get it done in case I need it later
 remix_render_eyelids_inj:
-	ld	remix_alt_mode, r6
+	ldob p_alt_skin(g7), r6
 	cmpibne 1, r6, remix_render_eyelids_inj_normal
 	ld      alt_eyelid_data[r7*4], r6
 	b remix_render_eyelids_inj_d
@@ -213599,7 +213591,7 @@ remix_render_eyelids_inj_normal:
 	b remix_render_eyelids_inj_d
 
 remix_amy_heads_chk:
-	ld	remix_alt_mode, r15
+	ldob p_alt_skin(g7), r15
 	cmpibne 1, r15, remix_amy_heads_chk_normal
 	cmpobe  2, r7, uk_amy_heads
 	cmpobe	28, r7, uk_amy_heads
@@ -213610,7 +213602,7 @@ remix_amy_heads_chk_normal:
 	b remix_amy_heads_chk_d
 
 remix_loc_33038_chk:
-	ld	remix_alt_mode, r15
+	ldob p_alt_skin(g7), r15
 	cmpibne 1, r15, remix_loc_33038_chk_normal
 	cmpobe  2, r7, uk_amy_heads_1
 	cmpobe	28, r7, uk_amy_heads_1
@@ -213621,9 +213613,9 @@ remix_loc_33038_chk_normal:
 	b remix_loc_33038_chk_d
 
 remix_sub_81038_inj:
-	ld	remix_alt_mode, r11
+	ldob p_alt_skin(g7), r11
 	cmpibne 1, r11, remix_sub_81038_inj_normal
-        lda     alt_character_spin_mot_objects, r11
+    lda     alt_character_spin_mot_objects, r11
 	b remix_sub_81038_inj_d
 remix_sub_81038_inj_normal:
 	lda	character_spin_mot_objects, r11
@@ -213658,7 +213650,7 @@ remix_super_sonic_frown_left_n: .short 32768
 remix_super_sonic_frown_right_n: .short 32769
 
 remix_set_obj_inj:
-	ld remix_alt_mode, g1
+	ldob p_alt_skin(g7), g1
 	cmpibne 1, g1, remix_set_obj_inj_normal
 	ldos	remix_sonic_frown_left_n, g1
 	cmpobne g1, g0, remix_set_obj_inj_not3023
@@ -213693,10 +213685,21 @@ remix_sel_pl_p1r_inj_normal:
 	b remix_sel_pl_p1r_inj_d
 
 remix_sel_pl_p1_nise_add_skip_inj:
+	ld INTERUPT_FLAGS_MOMENTARY, r15
+	shro 9, r15, r15 # P1 Kick
+	and 1, r15, r15
+	cmpobe 0, r15, remix_check_random_btn
+	ldob    P1_PARTS + p_alt_skin, r15
+	xor		1, r15, r15 # toggle value
+	stob	r15, P1_PARTS + p_alt_skin
+	mov		g0, r15
+	call	play_sd_cork_1b
+	mov		r15, g0
+remix_check_random_btn:
 	ld INTERUPT_FLAGS_MOMEN_ON_REL, r15
 	shro 10, r15, r15 # P1 Block
 	and 1, r15, r15
-	cmpobe 1, r15, remix_sel_pl_p1_nise_add_skip_inj_d
+	cmpobe 1, r15, remix_sel_pl_p1_nise_add_skip_inj_d	
 remix_sel_pl_p1_nise_add_skip_inj_normal:
 	cmpobe  0, r3, sel_pl_exit
 	b remix_sel_pl_p1_nise_add_skip_inj_d

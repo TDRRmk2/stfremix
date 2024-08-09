@@ -2539,4 +2539,7 @@
    .set remix_alt_mode, mod_fa_unused
    .globl no_ketchup_mode
    .set no_ketchup_mode, unused_unknown0
+   
+   .globl p_alt_skin
+   .set p_alt_skin, 0x28 # short, unused
    #end
