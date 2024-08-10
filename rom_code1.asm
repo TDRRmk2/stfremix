@@ -11378,7 +11378,7 @@ sub_C738:                               # CODE XREF: BUNRI_INT+50↑p
                 call    sub_7F0E8       # Inits player bodies
                 call    scale_something
                 movt    0, g0
-                movt    0, g4
+                movt   	0, g4
                 ld      fa_rob0, r3
                 ld      fa_rob1, r7
                 lda     0x1F88(r3), g3
@@ -32354,12 +32354,12 @@ send_st15_sea_thd:                      # CODE XREF: send_st01_sea_thd+8↑j
 # End of function send_st01_sea_thd
 # =============== S U B R O U T I N E =======================================
 snc_eye_thd_set:                        # CODE XREF: camera_init+4D4↑p
-                ldt     0x20C(g8), r8   # Label from official source
+                ldt     0x20C(g8), r8 #20c   # Label from official source
                 ld      0x0(g7), r15
                 bbs     0x13, r15, loc_2148C
                 ld      0x0(g7), r15
                 bbc     0x11, r15, loc_21498
-                ldt     0x18(g13), r8
+                ldt     0x18(g13), r8 #g13
                 b       loc_21498
 # ---------------------------------------------------------------------------
 loc_2148C:                              # CODE XREF: snc_eye_thd_set+8↑j
@@ -34292,7 +34292,9 @@ stage_disp:                             # CODE XREF: SEL_DSP+628↑p
                 ldob    stage_BLUE(r4), r7
                 stob    r5, RED
                 stob    r6, GREEN
-                stob    r7, BLUE
+                b		remix_stage_disp_inj # stob    r7, BLUE
+				mark
+remix_stage_disp_inj_d:
                 call    chg_pol_color_req
                 ret
 # End of function stage_disp
@@ -53684,7 +53686,8 @@ loc_371CC:                              # CODE XREF: select_pl_P2+2DC↑j
                 mov     0, r15
                 st      r15, 0x40(g13)
 sel_pl_p2r_P2:                          # CODE XREF: select_pl_P2+48↑j
-                bbc     0x17, r8, sel_pl_p2l_P2 # Label from Fighting Vipers source
+                b		remix_sel_pl_p2r_inj # bbc     0x17, r8, sel_pl_p2l_P2 # Label from Fighting Vipers source
+remix_sel_pl_p2r_inj_d:
                 ldob    0x78(g13), r14
                 cmpobne 0, r14, sel_pl_p2_sage_P2
                 stob    r9, 0x78(g13)
@@ -53984,9 +53987,10 @@ sel_pl_p2_go_P2:                        # CODE XREF: select_pl_P2+84C↑j
                 lda     -1(r15), r15
                 stib    r15, 0x7A(g13)
 sel_pl_p2_nise_add_skip_P2:             # CODE XREF: select_pl_P2+A70↑j
-                shlo    0x10, 7, r4     # Label from Fighting Vipers source
+                shlo    0x10, 1, r4     # Label from Fighting Vipers source
                 and     r4, r8, r3
-                cmpobe  0, r3, sel_pl_exit_P2
+                b		remix_sel_pl_p2_nise_add_skip_inj # cmpobe  0, r3, sel_pl_exit_P2
+remix_sel_pl_p2_nise_add_skip_inj_d:
                 ld      select1_flag, r15
                 clrbit  1, r15, r15
                 st      r15, select1_flag
@@ -108416,7 +108420,7 @@ sub_70C84:                              # DATA XREF: fa_burni+AC↑o
                 lda     0x1DF, r15
                 st      r15, 0x198(r4)
                 ld      0x0(r3), r15
-                clrbit  0x13, r15, r15
+                clrbit  0x13, r15, r15 # of note
                 st      r15, 0x0(r3)
                 ld      0x0(r4), r15
                 clrbit  0x13, r15, r15
@@ -123540,8 +123544,8 @@ aEndingDsp_0:   .asciz "ending_dsp"
 # ---------------------------------------------------------------------------
                 ret
 # =============== S U B R O U T I N E =======================================
-sub_81038:                              # CODE XREF: ADV_MOVIE_INT+20↑p
-                ld      fa_rob0, r3
+old_sub_81038:                              # CODE XREF: ADV_MOVIE_INT+20↑p
+				ld      fa_rob0, r3
                 ld      fa_rob1, r7
                 mov     0, r11
                 stos    r11, 0x2080(r3)
@@ -123552,10 +123556,7 @@ sub_81038:                              # CODE XREF: ADV_MOVIE_INT+20↑p
                 stos    r11, 0x206C(r7)
                 st      r11, 0x2070(r3)
                 st      r11, 0x2070(r7)
-		b	remix_sub_81038_inj
-                #lda     character_spin_mot_objects, r11
-		mark
-remix_sub_81038_inj_d:
+                lda     character_spin_mot_objects, r11
                 addo    0x1F, 1, r15
                 ldob    0x1B0(r3), r4
                 mulo    r15, r4, r6
@@ -213612,14 +213613,66 @@ remix_loc_33038_chk_normal:
 	cmpobe  28, r7, uk_amy_i_heads_1
 	b remix_loc_33038_chk_d
 
-remix_sub_81038_inj:
-	ldob p_alt_skin(g7), r11
-	cmpibne 1, r11, remix_sub_81038_inj_normal
-    lda     alt_character_spin_mot_objects, r11
-	b remix_sub_81038_inj_d
-remix_sub_81038_inj_normal:
-	lda	character_spin_mot_objects, r11
-	b remix_sub_81038_inj_d
+# had to be forked over to here, since g7 apparently doesn't point to
+# P1_PARTS
+sub_81038:                              # CODE XREF: ADV_MOVIE_INT+20↑p
+				ld      fa_rob0, r3
+                ld      fa_rob1, r7
+                mov     0, r11
+                stos    r11, 0x2080(r3)
+                stos    r11, 0x2080(r7)
+                stos    r11, 0x2082(r3)
+                stos    r11, 0x2082(r7)
+                stos    r11, 0x206C(r3)
+                stos    r11, 0x206C(r7)
+                st      r11, 0x2070(r3)
+                st      r11, 0x2070(r7)
+				mov		2, r7
+				lda		P1_PARTS, r11
+remix_sub_81038_loop:
+				ldob 	p_alt_skin(r11), r11
+				cmpibne 1, r11, remix_sub_81038_normal_obj
+				lda     alt_character_spin_mot_objects, r11
+				b		remix_sub_81038_done_obj
+remix_sub_81038_normal_obj:
+                lda     character_spin_mot_objects, r11
+remix_sub_81038_done_obj:
+                addo    0x1F, 1, r15
+                ldob    0x1B0(r3), r4
+                mulo    r15, r4, r6
+                addo    r6, r11, r12
+                mulo    r15, r4, r6
+                addo    r6, r11, r13
+                ldos    0x0(r12), r4
+                stos    r4, 0x2084(r3)
+                ldos    2(r12), r4
+                stos    r4, 0x2086(r3)
+                ldos    0x0(r13), r4
+                ldos    2(r13), r4
+                ld      4(r12), r4
+                st      r4, 0x20EC(r3)
+                ld      4(r13), r4
+                lda     0x2088(r3), r3
+                ldt     8(r12), r4
+                stt     r4, 0x30(r3)
+                ldt     8(r13), r4
+                ldt     0x14(r12), r4
+                stt     r4, 0x3C(r3)
+                ldt     0x14(r13), r4
+				ld		fa_rob1, r3
+				lda		P2_PARTS, r11
+				subo	1, r7, r7
+				cmpobne	0, r7, remix_sub_81038_loop
+                ret
+
+#remix_sub_81038_inj:
+#	ldob p_alt_skin(r3), r11
+#	cmpibne 1, r11, remix_sub_81038_inj_normal
+#   lda     alt_character_spin_mot_objects, r11
+#	b remix_sub_81038_inj_d
+#remix_sub_81038_inj_normal:
+#	lda	character_spin_mot_objects, r11
+#	b remix_sub_81038_inj_d
 
 remix_ketchup_inj:
 	ld	no_ketchup_mode, r7
@@ -213684,6 +213737,15 @@ remix_sel_pl_p1r_inj_normal:
 	bbc 0xF, r8, sel_pl_p1l
 	b remix_sel_pl_p1r_inj_d
 
+remix_sel_pl_p2r_inj:
+	ld INTERUPT_FLAGS_HELD, r13
+	shro 18, r13, r13 # P2 Block
+	and 1, r13, r13
+	cmpobe 1, r13, remix_sel_pl_p2r_inj_d
+remix_sel_pl_p2r_inj_normal:
+	bbc 0x17, r8, sel_pl_p2l_P2
+	b remix_sel_pl_p2r_inj_d
+
 remix_sel_pl_p1_nise_add_skip_inj:
 	ld INTERUPT_FLAGS_MOMENTARY, r15
 	shro 9, r15, r15 # P1 Kick
@@ -213703,6 +213765,47 @@ remix_check_random_btn:
 remix_sel_pl_p1_nise_add_skip_inj_normal:
 	cmpobe  0, r3, sel_pl_exit
 	b remix_sel_pl_p1_nise_add_skip_inj_d
+
+remix_sel_pl_p2_nise_add_skip_inj:
+	ld INTERUPT_FLAGS_MOMENTARY, r15
+	shro 17, r15, r15 # P2 Kick
+	and 1, r15, r15
+	cmpobe 0, r15, remix_check_random_btn2
+	ldob    P2_PARTS + p_alt_skin, r15
+	xor		1, r15, r15 # toggle value
+	stob	r15, P2_PARTS + p_alt_skin
+	mov		g0, r15
+	call	play_sd_cork_1b
+	mov		r15, g0
+remix_check_random_btn2:
+	ld INTERUPT_FLAGS_MOMEN_ON_REL, r15
+	shro 18, r15, r15 # P2 Block
+	and 1, r15, r15
+	cmpobe 1, r15, remix_sel_pl_p2_nise_add_skip_inj_d	
+remix_sel_pl_p2_nise_add_skip_inj_normal:
+	cmpobe  0, r3, sel_pl_exit
+	b remix_sel_pl_p2_nise_add_skip_inj_d
+
+remix_stage_disp_inj:
+	b remix_stage_disp_inj_normal
+remix_stage_disp_sunset:
+	lda 128, r4
+	stob r4, RED
+	lda 120, r4
+	stob r4, GREEN
+	lda 110, r4
+	stob r4, BLUE
+remix_stage_disp_night:
+	lda 110, r4
+	stob r4, RED
+	lda 110, r4
+	stob r4, GREEN
+	lda 120, r4
+	stob r4, BLUE
+	b remix_stage_disp_inj_d
+remix_stage_disp_inj_normal:
+	stob    r7, BLUE
+	b remix_stage_disp_inj_d
 
 # add inj here
 

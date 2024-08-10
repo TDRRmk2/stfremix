@@ -2535,8 +2535,8 @@
    .globl CHAR_SUPERS
    .set CHAR_SUPERS, 0x10
 
-   .globl remix_alt_mode
-   .set remix_alt_mode, mod_fa_unused
+   .globl time_of_day
+   .set time_of_day, mod_fa_unused
    .globl no_ketchup_mode
    .set no_ketchup_mode, unused_unknown0
    
