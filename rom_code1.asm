@@ -34292,9 +34292,10 @@ stage_disp:                             # CODE XREF: SEL_DSP+628↑p
                 ldob    stage_BLUE(r4), r7
                 stob    r5, RED
                 stob    r6, GREEN
-                b		remix_stage_disp_inj # stob    r7, BLUE
-				mark
-remix_stage_disp_inj_d:
+                stob    r7, BLUE
+                #b		remix_stage_disp_inj # stob    r7, BLUE
+				#mark
+#remix_stage_disp_inj_d:
                 call    chg_pol_color_req
                 ret
 # End of function stage_disp
@@ -172316,21 +172317,21 @@ EGG_BOSS_PARTS: .long 0                 # DATA XREF: ROM:EGGMAN_BOSS↓o
                 .long 284
                 .long 282
 EGGMAN_BOSS_I_PARTS:.long 0             # DATA XREF: ROM:EGGMAN_BOSS_I↓o
-                .long 2272
+                .long 4123
                 .long 867
-                .long 869
-                .long 2276
-                .long 2274
-                .long 868
-                .long 2275
-                .long 2273
-                .long 870
-                .long 2271
-                .long 866
-                .long 815
-                .long 871
-                .long 865
-                .long 814
+                .long 4121
+                .long 4125
+                .long 0 #2274
+                .long 4120
+                .long 4124
+                .long 0 #2273
+                .long 4122
+                .long 0
+                .long 0
+                .long 4119
+                .long 0 #871
+                .long 0 #865
+                .long 4119
                 .long 0
                 .long 292
                 .long 286
@@ -172416,10 +172417,10 @@ EGG_MINION_PARTS:.long 0                # DATA XREF: ROM:EGG_MINION↓o
                 .long 2895
                 .long 2897
                 .long 2904
-                .long 2902
+                .long 800
                 .long 32771
                 .long 32772
-                .long 2901
+                .long 799
                 .long 0
                 .long 2899
                 .long 2894
@@ -172903,9 +172904,9 @@ ESPIO_I:        .long ESPIO_I_PARTS     # DATA XREF: ROM:000C52EC↓o
                 .float 8.0
                 .long dword_C513C
                 .float 9.0
-EGGMAN_I:       .long EGGMAN_I_PARTS    # DATA XREF: ROM:000C52F0↓o
+EGGMAN_I:       .long EGG_MINION_PARTS    # DATA XREF: ROM:000C52F0↓o
                 .long model_floats_6
-                .long EGGMAN_I_PARTS
+                .long EGG_MINION_PARTS
                 .long EGGMAN_ANIMATIONS
                 .long floats
                 .float 72.0
@@ -173141,7 +173142,7 @@ CHAR_PARTS:     .long SONIC             # DATA XREF: action_init+8↑r
                 .long SONIC_I
                 .long TAILS_I
                 .long AMY_I
-                .long METAL_I
+                .long ROCKET_METAL_SKIN
                 .long FANG_I
                 .long BARK_I
                 .long KNUCKLES_I
@@ -173194,7 +173195,7 @@ CHAR_PARTS:     .long SONIC             # DATA XREF: action_init+8↑r
                 .long sonic_i_default_face_1
                 .long tails_i_default_face_1
                 .long amy_i_default_face_1
-                .long metal_sonic_default_face_1
+                .long rocket_metal_default_face_1
                 .long fang_i_default_face_1
                 .long bark_i_default_face_1
                 .long knuckles_i_default_face_1
@@ -173267,7 +173268,7 @@ default_face_1: .long sonic_default_face_1
                 .long sonic_i_default_face_1
                 .long tails_i_default_face_1
                 .long amy_i_default_face_1
-                .long metal_sonic_default_face_1
+                .long rocket_metal_default_face_1
                 .long fang_i_default_face_1
                 .long bark_i_default_face_1
                 .long knuckles_i_default_face_1
@@ -173319,7 +173320,7 @@ default_face_2: .long sonic_default_face_2 # DATA XREF: ROM:000C5410↑o
                 .long sonic_i_default_face_2
                 .long tails_i_open_mouth_smile
                 .long amy_i_midface_smile
-                .long metal_sonic_default_face_2
+                .long rocket_metal_default_face_1
                 .long fang_i_mouth_slight_open
                 .long bark_i_open_mouth_smile
                 .long knuckles_i_open_mouth_smile_anim
@@ -173371,7 +173372,7 @@ being_hit_face: .long sonic_being_hit_face_anim
                 .long sonic_i_being_hit_face_anim
                 .long tails_i_being_hit_face
                 .long amy_i_being_hit_face
-                .long metal_sonic_being_hit_face
+                .long rocket_metal_default_face_1
                 .long fang_i_being_hit_face
                 .long bark_i_being_hit_face_anim
                 .long knuckles_i_being_hit_face
@@ -173423,7 +173424,7 @@ default_face_3: .long sonic_default_face_3 # DATA XREF: ROM:000C5418↑o
                 .long sonic_i_default_face_3
                 .long tails_i_default_face_2
                 .long amy_i_default_face_3
-                .long metal_sonic_default_face_3
+                .long rocket_metal_default_face_1
                 .long fang_i_default_face_2
                 .long bark_i_default_face_2
                 .long knuckles_i_gliding_smile
@@ -173475,7 +173476,7 @@ default_face_4: .long sonic_default_face_4 # DATA XREF: ROM:000C541C↑o
                 .long sonic_i_default_face_4
                 .long tails_i_surprised_face_anim
                 .long amy_i_suprised_face_1
-                .long metal_sonic_default_face_4
+                .long rocket_metal_default_face_1
                 .long fang_i_surprised_face_anim
                 .long bark_i_default_face_3
                 .long knuckles_i_default_face_2
@@ -173527,7 +173528,7 @@ surprised_face: .long sonic_surprised_face_anim
                 .long sonic_i_surprised_face_anim
                 .long tails_i_surprised_face_anim_2
                 .long amy_i_suprised_face_2
-                .long metal_sonic_default_face_5
+                .long rocket_metal_default_face_1
                 .long fang_i_surprised_face_anim
                 .long bark_i_surprised_face_anim
                 .long knuckles_i_surprised_face_anim
@@ -173579,7 +173580,7 @@ open_mouth_smile:.long sonic_open_mouth_smile_anim
                 .long sonic_i_open_mouth_smile_anim
                 .long tails_i_open_mouth_smile_2
                 .long amy_i_open_mouth_side
-                .long metal_sonic_default_face_6
+                .long rocket_metal_default_face_1
                 .long fang_i_mouth_slight_open_2
                 .long bark_i_open_mouth_smile_2
                 .long knuckles_i_open_mouth_smile_anim_2
@@ -173631,7 +173632,7 @@ huge_mouth_closed_eyes:.long sonic_huge_mouth_eyes_closed
                 .long sonic_i_huge_mouth_eyes_closed
                 .long tails_i_open_mouth_smile_anim
                 .long amy_i_open_mouth_side_anim
-                .long metal_sonic_default_face_7
+                .long rocket_metal_default_face_1
                 .long fang_i_mouth_open_side_anm
                 .long bark_i_huge_mouth_eyes_closed
                 .long knuckles_i_huge_mouth_eyes_closed
@@ -173683,7 +173684,7 @@ wincing:        .long sonic_wincing     # DATA XREF: ROM:000C542C↑o
                 .long sonic_i_wincing
                 .long tails_i_wincing
                 .long amy_i_wincing
-                .long metal_sonic_damage_1
+                .long rocket_metal_default_face_1
                 .long fang_i_surprised_face_anim_2
                 .long bark_i_wincing
                 .long knuckles_i_wincing
@@ -173735,7 +173736,7 @@ squished_squinting:.long sonic_squished_squinting
                 .long sonic_i_squished_squinting
                 .long tails_i_squished_squinting
                 .long amy_i_squished_squinting
-                .long metal_sonic_squished
+                .long rocket_metal_default_face_1
                 .long fang_i_squished_squinting
                 .long bark_i_squished_squinting
                 .long knuckles_i_squished_squinting
@@ -173787,7 +173788,7 @@ angry:          .long sonic_frown_anim  # DATA XREF: ROM:000C5434↑o
                 .long sonic_i_frown_anim
                 .long tails_i_frown
                 .long amy_i_default_face_4
-                .long metal_sonic_default_face_8
+                .long rocket_metal_default_face_1
                 .long fang_i_default_face_3
                 .long bark_i_angry
                 .long knuckes_i_angry
@@ -173839,7 +173840,7 @@ sad:            .long sonic_wincing_anim # DATA XREF: ROM:000C5438↑o
                 .long sonic_i_wincing_anim
                 .long tails_i_sad
                 .long amy_i_sad
-                .long metal_sonic_damage_2
+                .long rocket_metal_default_face_1
                 .long fang_i_surprised_face_anim_3
                 .long bark_i_sad
                 .long knuckles_i_wincing_2
@@ -173891,7 +173892,7 @@ blushing_heart_eyes:.long sonic_frown_2 # DATA XREF: ROM:000C543C↑o
                 .long sonic_i_frown_2
                 .long tails_i_heart_eyes
                 .long amy_i_midface_smile_2 # Fix is in notes
-                .long metal_sonic_damage_3
+                .long rocket_metal_default_face_1
                 .long fang_i_heart_eyes
                 .long bark_i_heart_eyes
                 .long knuckes_i_heart_eyes
@@ -174099,7 +174100,7 @@ wincing_2:      .long sonic_wincing_teeth # DATA XREF: ROM:000C544C↑o
                 .long sonic_i_wincing_teeth
                 .long tails_i_being_hit_face
                 .long amy_i_being_hit_face
-                .long metal_sonic_being_hit_face
+                .long rocket_metal_default_face_1
                 .long fang_i_being_hit_face
                 .long bark_i_being_hit_face_anim
                 .long knuckles_i_being_hit_face
@@ -174151,7 +174152,7 @@ dizzy:          .long sonic_dizzy_face  # DATA XREF: ROM:000C5450↑o
                 .long sonic_i_dizzy_face
                 .long tails_i_dizzy
                 .long amy_i_dizzy
-                .long metal_sonic_damage_4
+                .long rocket_metal_default_face_1
                 .long fang_i_dizzy
                 .long bark_i_dizzy
                 .long knuckles_i_dizzy
@@ -174307,7 +174308,7 @@ regular_hit:    .long sonic_being_hit_face_anim
                 .long sonic_i_being_hit_face_anim
                 .long tails_i_being_hit_face
                 .long amy_i_suprised_face_1
-                .long metal_sonic_being_hit_face
+                .long rocket_metal_default_face_1
                 .long fang_i_surprised_face_anim
                 .long bark_i_being_hit_face_anim
                 .long knuckles_i_being_hit_face
@@ -174359,7 +174360,7 @@ player_hand_animations:.long sonic_hand_animations
                 .long sonic_i_hand_animations
                 .long tails_i_hand_animations
                 .long amy_i_hand_animations
-                .long metal_sonic_hand_animations
+                .long rocket_metal_hand_animations
                 .long fang_i_hand_animations
                 .long bark_i_hand_animations
                 .long knuckles_i_hand_animations
@@ -174367,7 +174368,7 @@ player_hand_animations:.long sonic_hand_animations
                 .long eggman_hand_animations
                 .long eggmanb_hand_animations
                 .long bean_i_hand_animations
-                .long eggman_boss_hand_animations
+                .long tankman_hand_animations
                 .long eggman_ufo_hand_animations
                 .long eggman_minion_hand_animations
                 .long rocket_metal_hand_animations
@@ -213786,26 +213787,26 @@ remix_sel_pl_p2_nise_add_skip_inj_normal:
 	cmpobe  0, r3, sel_pl_exit
 	b remix_sel_pl_p2_nise_add_skip_inj_d
 
-remix_stage_disp_inj:
-	b remix_stage_disp_inj_normal
-remix_stage_disp_sunset:
-	lda 128, r4
-	stob r4, RED
-	lda 120, r4
-	stob r4, GREEN
-	lda 110, r4
-	stob r4, BLUE
-remix_stage_disp_night:
-	lda 110, r4
-	stob r4, RED
-	lda 110, r4
-	stob r4, GREEN
-	lda 120, r4
-	stob r4, BLUE
-	b remix_stage_disp_inj_d
-remix_stage_disp_inj_normal:
-	stob    r7, BLUE
-	b remix_stage_disp_inj_d
+#remix_stage_disp_inj:
+#	b remix_stage_disp_inj_normal
+#remix_stage_disp_sunset:
+#	lda 128, r4
+#	stob r4, RED
+#	lda 120, r4
+#	stob r4, GREEN
+#	lda 110, r4
+#	stob r4, BLUE
+#remix_stage_disp_night:
+#	lda 110, r4
+#	stob r4, RED
+#	lda 110, r4
+#	stob r4, GREEN
+#	lda 120, r4
+#	stob r4, BLUE
+#	b remix_stage_disp_inj_d
+#remix_stage_disp_inj_normal:
+#	stob    r7, BLUE
+#	b remix_stage_disp_inj_d
 
 # add inj here
 
@@ -213813,15 +213814,15 @@ remix_stage_disp_inj_normal:
 CHAR_PARTS_ALT: .long SONIC_ALT             # DATA XREF: action_init+8↑r
                 .long TAILS
                 .long AMY_ALT
-                .long METAL_SONIC
+                .long ROCKET_METAL_SKIN
                 .long FANG
                 .long BARK
                 .long KNUCKLES
                 .long ESPIO
-                .long EGGMAN
+                .long EGGMAN_I
                 .long EGGMANB
                 .long BEAN
-                .long EGGMAN_BOSS
+                .long EGGMAN_BOSS_I
                 .long EGG_UFO
                 .long EGG_MINION
                 .long ROCKET_METAL
@@ -213844,10 +213845,10 @@ CHAR_PARTS_ALT: .long SONIC_ALT             # DATA XREF: action_init+8↑r
                 .long BARK_I
                 .long KNUCKLES_I
                 .long ESPIO_I
-                .long EGGMAN_I
+                .long EGGMAN
                 .long EGGMANB_I
                 .long BEAN_I
-                .long EGGMAN_BOSS_I
+                .long EGGMAN_BOSS
                 .long EGG_UFO_I
                 .long EGG_MINION_I
                 .long ROCKET_METAL_I
@@ -213866,7 +213867,7 @@ CHAR_PARTS_ALT: .long SONIC_ALT             # DATA XREF: action_init+8↑r
                 .long super_sonic_default_face
                 .long tails_default_face_1
                 .long amy_default_face_1
-                .long metal_sonic_default_face_1
+                .long rocket_metal_default_face_1
                 .long fang_default_face_1
                 .long bark_default_face_1
                 .long knuckles_default_face_1
@@ -213915,6 +213916,19 @@ CHAR_PARTS_ALT: .long SONIC_ALT             # DATA XREF: action_init+8↑r
                 .long sonic_i_default_face_1
                 .long sonic_i_default_face_1
                 .long sonic_i_default_face_1
+
+ROCKET_METAL_SKIN: .long ROCKET_PARTS # DATA XREF: ROM:000C5274↓o
+                .long model_floats_0
+                .long ROCKET_PARTS
+                .long METAL_SONIC_ANIMATIONS
+                .long floats
+                .float 60.0
+                .long dword_C5148
+                .long dword_C5260
+                .long more_floats
+                .float 10.0
+                .long dword_C513C
+                .float 12.0
 
 SONIC_ALT:      .long SUPER_SONIC_PARTS # DATA XREF: ROM:CHAR_PARTS↓o
                 .long model_floats_0
@@ -214045,7 +214059,7 @@ PLAYER_ALT_HEAD_LIST:.long alt_default_face_1   # DATA XREF: set_mot_dat+90↑r
 alt_default_face_1:.long super_sonic_default_face
                 .long tails_default_face_1
                 .long amy_default_face_1
-                .long metal_sonic_default_face_1
+                .long rocket_metal_default_face_1
                 .long fang_default_face_1
                 .long bark_default_face_1
                 .long knuckles_default_face_1
@@ -214097,7 +214111,7 @@ alt_default_face_1:.long super_sonic_default_face
 alt_default_face_2:.long super_sonic_default_face
                 .long tails_open_mouth_smile_1
                 .long amy_midface_smile
-                .long metal_sonic_default_face_2
+                .long rocket_metal_default_face_1
                 .long fang_mouth_slight_open
                 .long bark_open_mouth_smile
                 .long knuckles_open_mouth_smile_anim
@@ -214149,7 +214163,7 @@ alt_default_face_2:.long super_sonic_default_face
 alt_being_hit_face:.long super_sonic_default_face
                 .long tails_being_hit_face
                 .long amy_being_hit_face
-                .long metal_sonic_being_hit_face
+                .long rocket_metal_default_face_1
                 .long fang_being_hit_face
                 .long bark_being_hit_face_anim
                 .long knuckles_being_hit_face
@@ -214201,7 +214215,7 @@ alt_being_hit_face:.long super_sonic_default_face
 alt_default_face_3:.long super_sonic_default_face
                 .long tails_default_face_2
                 .long amy_default_face_3
-                .long metal_sonic_default_face_3
+                .long rocket_metal_default_face_1
                 .long fang_default_face_2
                 .long bark_default_face_2
                 .long knuckles_gliding_smile
@@ -214253,7 +214267,7 @@ alt_default_face_3:.long super_sonic_default_face
 alt_default_face_4:.long super_sonic_default_face
                 .long tails_surprised_face_anim
                 .long amy_surprised_face_1
-                .long metal_sonic_default_face_4
+                .long rocket_metal_default_face_1
                 .long fang_surprised_face_anim
                 .long bark_default_face_3
                 .long knuckles_default_face_2
@@ -214305,7 +214319,7 @@ alt_default_face_4:.long super_sonic_default_face
 alt_surprised_face:.long super_sonic_default_face
                 .long tails_surprised_face_anim_2
                 .long amy_surprised_face_2
-                .long metal_sonic_default_face_5
+                .long rocket_metal_default_face_1
                 .long fang_surprised_face_anim
                 .long bark_surprised_face_anim
                 .long knuckles_surprised_face_anim
@@ -214357,7 +214371,7 @@ alt_surprised_face:.long super_sonic_default_face
 alt_open_mouth_smile:.long super_sonic_default_face
                 .long tails_open_mouth_smile_2
                 .long amy_open_mouth_side
-                .long metal_sonic_default_face_6
+                .long rocket_metal_default_face_1
                 .long fang_mouth_slight_open_2
                 .long bark_open_mouth_smile_2
                 .long knuckles_open_mouth_smile_anim_2
@@ -214409,7 +214423,7 @@ alt_open_mouth_smile:.long super_sonic_default_face
 alt_huge_mouth_closed_eyes:.long super_sonic_default_face
                 .long tails_open_mouth_smile_anim
                 .long amy_open_mouth_side_anim
-                .long metal_sonic_default_face_7
+                .long rocket_metal_default_face_1
                 .long fang_mouth_open_side_anim
                 .long bark_huge_mouth_eyes_closed
                 .long knuckles_huge_mouth_eyes_closed
@@ -214461,7 +214475,7 @@ alt_huge_mouth_closed_eyes:.long super_sonic_default_face
 alt_wincing:	.long super_sonic_default_face
                 .long tails_wincing_1
                 .long amy_wincing
-                .long metal_sonic_damage_1
+                .long rocket_metal_default_face_1
                 .long fang_surprised_face_anim_2
                 .long bark_wincing
                 .long knuckles_wincing
@@ -214513,7 +214527,7 @@ alt_wincing:	.long super_sonic_default_face
 alt_squished_squinting:.long sonic_squished_squinting
                 .long tails_squished_squinting
                 .long amy_squished_squinting
-                .long metal_sonic_squished
+                .long rocket_metal_squished_squinting
                 .long fang_squished_squinting
                 .long bark_squished_squinting
                 .long knuckles_squished_squinting
@@ -214565,7 +214579,7 @@ alt_squished_squinting:.long sonic_squished_squinting
 alt_angry:	.long super_sonic_default_face
                 .long tails_angry
                 .long amy_default_face_4
-                .long metal_sonic_default_face_8
+                .long rocket_metal_default_face_1
                 .long fang_default_face_3
                 .long bark_angry
                 .long knuckles_angry
@@ -214617,7 +214631,7 @@ alt_angry:	.long super_sonic_default_face
 alt_sad:	.long super_sonic_default_face
                 .long tails_sad
                 .long amy_sad
-                .long metal_sonic_damage_2
+                .long rocket_metal_default_face_1
                 .long fang_surprised_face_anim_3
                 .long bark_sad
                 .long knuckles_wincing_2
@@ -214721,7 +214735,7 @@ alt_amy_victory_pose:.long 0
 alt_wincing_2:  .long super_sonic_default_face
                 .long tails_being_hit_face
                 .long amy_being_hit_face
-                .long metal_sonic_being_hit_face
+                .long rocket_metal_default_face_1
                 .long fang_being_hit_face
                 .long bark_being_hit_face_anim
                 .long knuckles_being_hit_face
@@ -214773,7 +214787,7 @@ alt_wincing_2:  .long super_sonic_default_face
 alt_dizzy:	.long super_sonic_default_face
                 .long tails_dizzy
                 .long amy_dizzy
-                .long metal_sonic_damage_4
+                .long rocket_metal_default_face_1
                 .long fang_dizzy
                 .long bark_dizzy
                 .long knuckles_dizzy
@@ -214825,7 +214839,7 @@ alt_dizzy:	.long super_sonic_default_face
 alt_regular_hit:.long super_sonic_default_face
                 .long tails_being_hit_face
                 .long amy_surprised_face_1
-                .long metal_sonic_being_hit_face
+                .long rocket_metal_default_face_1
                 .long fang_surprised_face_anim
                 .long bark_being_hit_face_anim
                 .long knuckles_being_hit_face
@@ -214983,7 +214997,7 @@ alt_osage_per_character:.long osage_null    # DATA XREF: osage_init+80↑o
 alt_player_hand_animations:.long sonic_hand_animations
                 .long tails_hand_animations
                 .long amy_hand_animations
-                .long metal_sonic_hand_animations
+                .long rocket_metal_hand_animations
                 .long fang_hand_animations
                 .long bark_hand_animations
                 .long knuckles_hand_animations
@@ -214991,7 +215005,7 @@ alt_player_hand_animations:.long sonic_hand_animations
                 .long eggman_hand_animations
                 .long eggmanb_hand_animations
                 .long bean_hand_animations
-                .long eggman_boss_hand_animations
+                .long tankman_hand_animations
                 .long eggman_ufo_hand_animations
                 .long eggman_minion_hand_animations
                 .long rocket_metal_hand_animations
@@ -215527,6 +215541,39 @@ alt_character_spin_mot_objects:.short 3750   # DATA XREF: sub_81038+54↑o
                 .float  0.003
                 .float  0.003
                 .float  0.003
+
+tankman_hand_animations:.short 0 # DATA XREF: ROM:000C659C↑o
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
+                .short 0
 
 aNoKetchupMode: .asciz "NO KETCHUP DMG MODE"
 
